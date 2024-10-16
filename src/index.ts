@@ -1,13 +1,15 @@
 import express from 'express';
-import { createConnection } from 'typeorm';
+import { connectDatabase } from './infrastructure/db/database';
 
 const app = express();
 const PORT = 3000;
 
 app.use(express.json());
 
-createConnection().then(() => {
+connectDatabase().then(() => {
   app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
   });
-}).catch(error => console.log('Error: ', error));
+}).catch(error => {
+  console.error('Failed to start the server', error);
+});
