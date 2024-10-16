@@ -17,4 +17,7 @@ export class Client {
 
   @OneToMany(() => Invoice, invoice => invoice.client)
   invoices: Invoice[];
+
+  @Column({ default: false })
+  isDeleted: boolean;  
 }

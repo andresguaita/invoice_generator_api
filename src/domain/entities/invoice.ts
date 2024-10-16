@@ -4,10 +4,11 @@ import { Product } from './product';
 
 @Entity()
 export class Invoice {
+  
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(() => Client, client => client.invoices)
+  @ManyToOne(() => Client, client => client.invoices, { nullable: false })
   client: Client;
 
   @ManyToMany(() => Product)
@@ -21,5 +22,8 @@ export class Invoice {
   tax: number;
 
   @Column('date')
-  date: Date;
+  date: string;
+
+  @Column({ default: false })
+  isDeleted: boolean;  
 }

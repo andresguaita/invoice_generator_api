@@ -1,7 +1,7 @@
 import { DataSource } from 'typeorm';
-import { Client } from '../../domain/entities/client';
-import { Invoice } from '../../domain/entities/invoice';
-import { Product } from '../../domain/entities/product';
+import { Product } from '../../../domain/entities/product';
+import { Invoice } from '../../../domain/entities/invoice';
+import { Client } from '../../../domain/entities/client';
 
 
 export const AppDataSource = new DataSource({
@@ -12,8 +12,9 @@ export const AppDataSource = new DataSource({
   password: process.env.DB_PASSWORD || 'password',
   database: process.env.DB_NAME || 'invoices_db',
   entities: [Client,Invoice,Product],
+  migrations: ['dist/migrations/*.js'],
   synchronize: true, // Cambiar a true solo en desarrollo
-  logging: true,
+  logging: false,
 });
 
 export const connectDatabase = async () => {
@@ -22,6 +23,6 @@ export const connectDatabase = async () => {
     console.log('Database connection established');
   } catch (error) {
     console.error('Error connecting to the database', error);
-    process.exit(1); // Salir si la conexión falla
+    process.exit(1);
   }
 };
