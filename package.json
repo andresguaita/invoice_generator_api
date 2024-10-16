@@ -1,0 +1,32 @@
+{
+  "name": "payana_challenge",
+  "version": "1.0.0",
+  "main": "index.js",
+"scripts": {
+  "start": "node dist/index.js",
+  "dev": "nodemon",
+  "build": "tsc",
+  "migration:generate": "typeorm migration:generate -n InitialMigration",
+  "migration:run": "typeorm migration:run"
+}
+,
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "axios": "^1.7.7",
+    "class-transformer": "^0.5.1",
+    "express": "^4.21.1",
+    "pg": "^8.13.0",
+    "reflect-metadata": "^0.2.2",
+    "typeorm": "^0.3.20"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.7.5",
+    "nodemon": "^3.1.7",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.3"
+  }
+}
