@@ -64,8 +64,21 @@ Esta aplicación gestiona facturas (**invoices**) y clientes. Permite crear fact
    DB_NAME=invoices_db
    ```
 
+4. Con la base de datos configurada ejecutar la migraciones:
 
-4. Iniciar la aplicación en modo desarrollo:
+   ```bash
+   npm run build
+   ``
+
+
+5. Con la base de datos configurada ejecutar la migraciones:
+
+   ```bash
+   npx typeorm migration:run -d dist/infrastructure/repositories/db/database.js
+   ```
+
+
+6. Iniciar la aplicación en modo desarrollo:
 
    ```bash
    npm run start:dev
