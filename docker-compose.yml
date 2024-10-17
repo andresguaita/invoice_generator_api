@@ -30,7 +30,7 @@ services:
       - postgres
     volumes:
       - .:/app
-    command: sh -c "npm run build && npm run start"
+    command: sh -c "npm run build && npx typeorm migration:run -d dist/infrastructure/repositories/db/database.js && npm run start"
 
 volumes:
   postgres-data:

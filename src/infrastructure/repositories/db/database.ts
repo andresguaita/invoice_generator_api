@@ -13,7 +13,7 @@ export const AppDataSource = new DataSource({
   database: process.env.DB_NAME || 'invoices_db',
   entities: [Client,Invoice,Product],
   migrations: ['dist/migrations/*.js'],
-  synchronize: false,
+  synchronize: process.env.NODE_ENV === 'prod'? false : true,
   logging: false,
 });
 
