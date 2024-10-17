@@ -24,7 +24,7 @@ export class CreateInvoice {
             invoice.client = <any>{ id: createInvoiceDTO.clientId };
             invoice.totalAmount = createInvoiceDTO.amount + taxAmount;
             invoice.date = new Date().toISOString();
-            invoice.tax = 0;
+            invoice.tax = taxAmount;
 
 
             const products = await this.productRepo.findProductsByIds(createInvoiceDTO.productIds);

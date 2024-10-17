@@ -3,10 +3,11 @@ import { connectDatabase } from './infrastructure/repositories/db/database';
 import { invoiceRoutes } from './interfaces/routes/invoiceRoutes';
 import { productRoutes } from './interfaces/routes/productRoutes';
 import { clientRoutes } from './interfaces/routes/clientRoutes';
+import 'dotenv/config';
 
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.APP_PORT || 3000
 
 app.use(express.json());
 

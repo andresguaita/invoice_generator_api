@@ -5,18 +5,21 @@ import { InvoiceRepositoryImpl } from '../../infrastructure/repositories/invoice
 import { ListInvoices } from '../../application/invoices/listInvoices';
 import { ListInvoicesWithDetails } from '../../application/invoices/listInvoicesWithDetails';
 import { ProductRepositoryImpl } from '../../infrastructure/repositories/productRepositoryImpl';
+import { CreateBatchInvoices } from '../../application/invoices/createBatchInvoices';
 
 
 export class InvoiceController {
     private createInvoiceUseCase: CreateInvoice;
     private listInvoicesUseCase: ListInvoices;
     private listInvoicesWithDetailsUseCase: ListInvoicesWithDetails;
+    createBatchInvoicesUseCase: CreateBatchInvoices;
     constructor() {
         const invoiceRepository = new InvoiceRepositoryImpl();
         const productRepository = new ProductRepositoryImpl();
-        this.createInvoiceUseCase = new CreateInvoice(invoiceRepository,productRepository ,AppDataSource);
+        this.createInvoiceUseCase = new CreateInvoice(invoiceRepository, productRepository, AppDataSource);
         this.listInvoicesUseCase = new ListInvoices(invoiceRepository);
         this.listInvoicesWithDetailsUseCase = new ListInvoicesWithDetails(invoiceRepository);
+        this.createBatchInvoicesUseCase = new CreateBatchInvoices(invoiceRepository, productRepository);
     }
 
 
@@ -51,7 +54,21 @@ export class InvoiceController {
             const invoices = await this.listInvoicesWithDetailsUseCase.execute();
             res.status(200).json(invoices);
         } catch (error) {
-            res.status(500).json({ message: 'Error listing invoices with details',  error: (error as Error).message });
+            res.status(500).json({ message: 'Error listing invoices with details', error: (error as Error).message });
+        }
+    }
+
+    public async createBatchInvoices(req: Request, res: Response): Promise<void> {
+        try {
+            const file = req.file;
+            if (!file) {
+                res.status(400).json({ message: 'No file uploaded' });
+                return;
+            }
+            const results = await this.createBatchInvoicesUseCase.execute(file.buffer);
+            res.status(201).json(results);
+        } catch (error) {
+            res.status(500).json({ message: 'Error creating batch invoices', error: (error as Error).message });
         }
     }
 
