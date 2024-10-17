@@ -30,4 +30,12 @@ export class InvoiceRepositoryImpl implements InvoiceRepository {
       });
     return { invoices, total };
   }
+
+  async listAllWithDetails(): Promise<Invoice[]> {
+    return AppDataSource.getRepository(Invoice).find({
+      relations: ['client', 'products'], 
+      where: { isDeleted: false }
+    });
+  }
+
 }

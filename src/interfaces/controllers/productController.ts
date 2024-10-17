@@ -14,6 +14,7 @@ export class ProductController {
   private deleteProductUseCase = new DeleteProduct(this.productRepo);
   private getProductUseCase = new DeleteProduct(this.productRepo);
   private listProductsUseCase = new ListProducts(this.productRepo);
+  
   public async createProduct(req: Request, res: Response): Promise<void> {
     const product = req.body;
     const newProduct = await this.createProductUseCase.execute(product);

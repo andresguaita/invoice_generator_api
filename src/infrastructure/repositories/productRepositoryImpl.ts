@@ -2,6 +2,7 @@
 import { AppDataSource } from './db/database';
 import { Product } from '../../domain/entities/product';
 import { ProductRepository } from '../../domain/repositories/productRepository';
+import { In } from 'typeorm';
 
 
 export class ProductRepositoryImpl implements ProductRepository {
@@ -39,5 +40,13 @@ export class ProductRepositoryImpl implements ProductRepository {
         skip: (page - 1) * limit,
       });
     return { products, total };
+  }
+
+  async findProductsByIds(productIds: number[]): Promise<Product[]> {
+    return this.ormRepo.find({
+      where: {
+        id: In(productIds),
+      },
+    });
   }
 }

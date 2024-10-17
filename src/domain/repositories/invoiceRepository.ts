@@ -5,5 +5,6 @@ export interface InvoiceRepository {
   save(invoice: Invoice, manager?: EntityManager): Promise<Invoice>;
   findById(id: number): Promise<Invoice | null>;
   listAll(): Promise<Invoice[]>;
+  listAllWithDetails(): Promise<Invoice[]>;
   listPaginated(page: number, limit: number): Promise<{ invoices: Invoice[], total: number }>;
 }
