@@ -61,8 +61,16 @@ export class InvoiceController {
     public async createBatchInvoices(req: Request, res: Response): Promise<void> {
         try {
             const file = req.file;
+
             if (!file) {
                 res.status(400).json({ message: 'No file uploaded' });
+                return;
+            }
+            else if (
+                file.mimetype !== 'application/vnd.ms-excel' &&
+                file.mimetype !== 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+            ) {
+                res.status(400).json({ message: 'Invalid file type. Only Excel files are allowed.' });
                 return;
             }
             const results = await this.createBatchInvoicesUseCase.execute(file.buffer);
